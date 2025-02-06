@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Service Report Form</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f4f4f4;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3 {
+            color: #333;
+        }
+
+        label {
+            display: block;
+            margin-top: 10px;
+        }
+
+        input[type="text"],
+        input[type="number"],
+        input[type="password"],
+        input[type="date"] {
+            width: 100%;
+            padding: 8px;
+            margin-top: 5px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+        }
+
+        button {
+            margin-top: 20px;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #218838;
+        }
+
+        #downloadSection {
+            margin-top: 20px;
+        }
+
+        .social-share {
+            margin-top: 20px;
+        }
+
+        .social-share a {
+            margin-right: 10px;
+            text-decoration: none;
+            color: #fff;
+            padding: 8px 12px;
+            border-radius: 4px;
+        }
+
+        .social-share .twitter {
+            background-color: #1DA1F2;
+        }
+
+        .social-share .facebook {
+            background-color: #1877F2;
+        }
+
+        .social-share .linkedin {
+            background-color: #0077B5;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>LAXMI SECURITY SYSTEMS AND ELECTRICALS</h1>
+        <p>8-11-25, Shop No:4, First Floor, Beside Bajaj Showroom, Old Gajuwaka, Visakhapatnam, 530026</p>
+        <p>Phone no.: 9885651904 | Email: laxmicctvelectricals@gmail.com | GSTIN: 37ATAPT4744M1Z4 | State: 37-Andhra Pradesh</p>
+        
+        <h2>SERVICE REPORT</h2>
+        
+        <form id="serviceReportForm">
+            <h3>CUSTOMER INFORMATION</h3>
+            <label for="customerName">Customer Name:</label>
+            <input type="text" id="customerName" name="customerName" required>
+            
+            <label for="address">Address:</label>
+            <input type="text" id="address" name="address" required>
+            
+            <label for="contactPerson">Contact Person:</label>
+            <input type="text" id="contactPerson" name="contactPerson" required>
+            
+            <label for="phoneNo">Phone No:</label>
+            <input type="text" id="phoneNo" name="phoneNo" required>
+            
+            <h3>SERVICE REQUEST INFORMATION</h3>
+            <label for="deviceInfo">Device Information:</label>
+            <input type="text" id="deviceInfo" name="deviceInfo" required>
+            
+            <label for="quantity">QTY:</label>
+            <input type="number" id="quantity" name="quantity" required>
+            
+            <label for="deviceMake">Device Make:</label>
+            <input type="text" id="deviceMake" name="deviceMake" required>
+            
+            <label for="ipAddress">IP Address:</label>
+            <input type="text" id="ipAddress" name="ipAddress" required>
+            
+            <label for="userName">User Name:</label>
+            <input type="text" id="userName" name="userName" required>
+            
+            <label for="password">Password:</label>
+            <input type="password" id="password" name="password" required>
+            
+            <label for="serviceDate">Service Date:</label>
+            <input type="date" id="serviceDate" name="serviceDate" required>
+            
+            <button type="submit">Submit</button>
+        </form>
+
+        <div id="downloadSection" style="display: none;">
+            <h3>Your Service Report is Ready!</h3>
+            <button id="downloadButton">Download Report as PDF</button>
+            <div class="social-share">
+                <h4>Share on Social Media:</h4>
+                <a href="#" class="twitter" id="shareTwitter">Twitter</a>
+                <a href="#" class="facebook" id="shareFacebook">Facebook</a>
+                <a href="#" class="linkedin" id="shareLinkedIn">LinkedIn</a>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <script>
+        const { jsPDF } = window.jspdf;
+
+        document.getElementById('serviceReportForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            
+            // Gather form data
+            const formData = {
+                customerName: document.getElementById('customerName').value,
+                address: document.getElementById('address').value,
+                contactPerson: document.getElementById('contactPerson').value,
+                phoneNo: document.getElementById('phoneNo').value,
+                deviceInfo: document.getElementById('deviceInfo').value,
+                quantity: document.getElementById('quantity').value,
+                deviceMake: document.getElementById('deviceMake').value,
+                ipAddress: document.getElementById('ipAddress').value,
+                userName: document.getElementById('userName').value,
+                password: document.getElementById('password').value,
+                serviceDate: document.getElementById('serviceDate').value
+            };
+
+            // Generate PDF
+            const doc = new jsPDF();
+            doc.setFontSize(12);
+            doc.text("LAXMI SECURITY SYSTEMS AND ELECTRICALS", 10, 10);
+            doc.text("8-11-25, Shop No:4, First Floor, Beside Bajaj Showroom, Old Gajuwaka, Visakhapatnam, 530026", 10, 20);
+            doc.text("Phone no.: 9885651904 | Email: laxmicctvelectricals@gmail.com | GSTIN: 37ATAPT4744M1Z4 | State: 37-Andhra Pradesh", 10, 30);
+            doc.text("SERVICE REPORT", 10, 40);
+            doc.text("CUSTOMER INFORMATION", 10, 50);
+            doc.text(Customer Name: ${formData.customerName}, 10, 60);
+            doc.text(Address: ${formData.address}, 10, 70);
+            doc.text(Contact Person: ${formData.contactPerson}, 10, 80);
+            doc.text(Phone No: ${formData.phoneNo}, 10, 90);
+            doc.text("SERVICE REQUEST INFORMATION", 10, 100);
+            doc.text(Device Information: ${formData.deviceInfo}, 10, 110);
+            doc.text(QTY: ${formData.quantity}, 10, 120);
+            doc.text(Device Make: ${formData.deviceMake}, 10, 130);
+            doc.text(IP Address: ${formData.ipAddress}, 10, 140);
+            doc.text(User Name: ${formData.userName}, 10, 150);
+            doc.text(Password: ${formData.password}, 10, 160);
+            doc.text(Service Date: ${formData.serviceDate}, 10, 170);
+
+            // Save PDF
+            const pdfBlob = doc.output('blob');
+            const pdfUrl = URL.createObjectURL(pdfBlob);
+
+            // Show download section
+            document.getElementById('downloadSection').style.display = 'block';
+
+            // Download PDF
+            document.getElementById('downloadButton').onclick = function() {
+                const a = document.createElement('a');
+                a.href = pdfUrl;
+                a.download = 'Service_Report.pdf';
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+            };
+
+            // Social Media Sharing
+            const reportText = Service Report for ${formData.customerName}:\nDevice: ${formData.deviceInfo}\nDate: ${formData.serviceDate};
+            const encodedText = encodeURIComponent(reportText);
+            const pdfUrlEncoded = encodeURIComponent(pdfUrl);
+
+            document.getElementById('shareTwitter').href = https://twitter.com/intent/tweet?text=${encodedText}&url=${pdfUrlEncoded};
+            document.getElementById('shareFacebook').href = https://www.facebook.com/sharer/sharer.php?u=${pdfUrlEncoded}&quote=${encodedText};
+            document.getElementById('shareLinkedIn').href = https://www.linkedin.com/sharing/share-offsite/?url=${pdfUrlEncoded}&title=${encodedText};
+        });
+    </script>
+</body>
+</html>
